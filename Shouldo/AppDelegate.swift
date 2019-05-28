@@ -30,7 +30,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         var date = DateComponents()
         date.hour = 9
         date.minute = 0
-        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
         let request = UNNotificationRequest(identifier: "noti", content: content, trigger: trigger)
         UNUserNotificationCenter.current().add(request, withCompletionHandler: { (error) in
             if let error = error {
@@ -65,22 +65,6 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
         UIApplication.shared.applicationIconBadgeNumber = DataManager.shared.fetchNotDoneCount(dayOfTheWeek: Formatter.shared.dayOfTheWeek())
-        let content = UNMutableNotificationContent()
-        content.title = "Today's Shouldo"
-        content.body = "오늘 할 일: \(DataManager.shared.fetchNotDoneCount(dayOfTheWeek: Formatter.shared.dayOfTheWeek()))개"
-        content.sound = UNNotificationSound.default
-        var date = DateComponents()
-        date.hour = 9
-        date.minute = 0
-        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
-        let request = UNNotificationRequest(identifier: "noti", content: content, trigger: trigger)
-        UNUserNotificationCenter.current().add(request, withCompletionHandler: { (error) in
-            if let error = error {
-                print(error)
-            } else {
-                print("Done")
-            }
-        })
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
