@@ -22,7 +22,10 @@ class DayOfTheWeekViewController: UIViewController {
 
     override func viewDidLoad() {
         super.viewDidLoad()
-        self.title = "Shouldo"
+        let formatter = DateFormatter()
+        formatter.dateStyle = .long
+        formatter.dateFormat = "EEE MMM dd"
+        self.title = formatter.string(from: Date())
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
