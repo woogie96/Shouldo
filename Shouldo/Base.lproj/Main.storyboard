@@ -347,11 +347,6 @@
                         <viewLayoutGuide key="safeArea" id="dpM-yE-Rz5"/>
                     </view>
                     <navigationItem key="navigationItem" id="H3M-3t-iJI">
-                        <barButtonItem key="leftBarButtonItem" systemItem="trash" id="vRZ-4S-38c">
-                            <connections>
-                                <action selector="trashButtonTapped:" destination="AuX-4V-HGG" id="QWp-jF-VD0"/>
-                            </connections>
-                        </barButtonItem>
                         <barButtonItem key="rightBarButtonItem" systemItem="search" id="4Qi-af-cVd">
                             <connections>
                                 <segue destination="DwI-zg-R7q" kind="show" id="FUZ-sm-Liy"/>
@@ -537,7 +532,14 @@
                         <viewLayoutGuide key="safeArea" id="6Tk-OE-BBY"/>
                     </view>
                     <navigationItem key="navigationItem" id="E8E-tD-o8T">
-                        <barButtonItem key="rightBarButtonItem" id="1Cl-eh-oI9"/>
+                        <rightBarButtonItems>
+                            <barButtonItem id="1Cl-eh-oI9"/>
+                            <barButtonItem systemItem="trash" id="v9G-Ms-kp8">
+                                <connections>
+                                    <action selector="trashBarButtonTapped:" destination="BYZ-38-t0r" id="8Bl-gj-eqp"/>
+                                </connections>
+                            </barButtonItem>
+                        </rightBarButtonItems>
                     </navigationItem>
                     <connections>
                         <outlet property="addTextField" destination="eRG-fR-ect" id="LVw-XT-cdX"/>

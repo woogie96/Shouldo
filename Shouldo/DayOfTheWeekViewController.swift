@@ -26,6 +26,7 @@ class DayOfTheWeekViewController: UIViewController {
         formatter.dateStyle = .long
         formatter.dateFormat = "EEE MMM dd"
         self.title = formatter.string(from: Date())
+        
         // Do any additional setup after loading the view.
     }
     override func viewWillAppear(_ animated: Bool) {
@@ -66,70 +67,7 @@ class DayOfTheWeekViewController: UIViewController {
             }
         }
     }
-    @IBAction func trashButtonTapped(_ sender: Any) {
-        let controller = UIAlertController(title: "Delete", message: "Choose the day", preferredStyle: .actionSheet)
-        
-        let mondayAction = UIAlertAction(title: "Monday", style: .default) { (_) in
-            let mondayShouldos: [ShouldoEntity] = DataManager.shared.fetchShouldo(dayOfTheWeek: "mon")
-            DataManager.shared.deleteShouldos(entities: mondayShouldos)
-            self.progressViewUpdate()
-        }
-        controller.addAction(mondayAction)
-        
-        let tuesdayAction = UIAlertAction(title: "Tuesday", style: .default) { (_) in
-            let tuesdayShouldos: [ShouldoEntity] = DataManager.shared.fetchShouldo(dayOfTheWeek: "tue")
-            DataManager.shared.deleteShouldos(entities: tuesdayShouldos)
-            self.progressViewUpdate()
-        }
-        controller.addAction(tuesdayAction)
-        
-        let wednesdayAction = UIAlertAction(title: "Wednesday", style: .default) { (_) in
-            let wednesdayShouldos: [ShouldoEntity] = DataManager.shared.fetchShouldo(dayOfTheWeek: "wed")
-            DataManager.shared.deleteShouldos(entities: wednesdayShouldos)
-            self.progressViewUpdate()
-        }
-        controller.addAction(wednesdayAction)
-        
-        let thursdayAction = UIAlertAction(title: "Thursday", style: .default) { (_) in
-            let thursdayShouldos: [ShouldoEntity] = DataManager.shared.fetchShouldo(dayOfTheWeek: "thu")
-            DataManager.shared.deleteShouldos(entities: thursdayShouldos)
-            self.progressViewUpdate()
-        }
-        controller.addAction(thursdayAction)
-        
-        let fridayAction = UIAlertAction(title: "Friday", style: .default) { (_) in
-            let fridayShouldos: [ShouldoEntity] = DataManager.shared.fetchShouldo(dayOfTheWeek: "fri")
-            DataManager.shared.deleteShouldos(entities: fridayShouldos)
-            self.progressViewUpdate()
-        }
-        controller.addAction(fridayAction)
-        
-        let saturdayAction = UIAlertAction(title: "Saturday", style: .default) { (_) in
-            let saturdayShouldos: [ShouldoEntity] = DataManager.shared.fetchShouldo(dayOfTheWeek: "sat")
-            DataManager.shared.deleteShouldos(entities: saturdayShouldos)
-            self.progressViewUpdate()
-        }
-        controller.addAction(saturdayAction)
-        
-        let sundayAction = UIAlertAction(title: "Sunday", style: .default) { (_) in
-            let sundayShouldos: [ShouldoEntity] = DataManager.shared.fetchShouldo(dayOfTheWeek: "sun")
-            DataManager.shared.deleteShouldos(entities: sundayShouldos)
-            self.progressViewUpdate()
-        }
-        controller.addAction(sundayAction)
-        
-        let deleteAllAction = UIAlertAction(title: "Delete all", style: .default) { (_) in
-            let allShouldos: [ShouldoEntity] = DataManager.shared.fetchSearchTotal()
-            DataManager.shared.deleteShouldos(entities: allShouldos)
-            self.progressViewUpdate()
-        }
-        controller.addAction(deleteAllAction)
-        
-        let cancleAction = UIAlertAction(title: "Cancel", style: .cancel, handler: nil)
-        controller.addAction(cancleAction)
-        
-        present(controller, animated: true, completion: nil)
-    }
+    
 }
 
 

@@ -21,17 +21,17 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    @objc func postNoti() {
-        UIApplication.shared.applicationIconBadgeNumber = DataManager.shared.fetchNotDoneCountBackground(dayOfTheWeek: Formatter.shared.dayOfTheWeek())
+    func postNoti() {
         let content = UNMutableNotificationContent()
-        content.title = "Today's Shouldo"
-        content.body = "오늘 할 일: \(DataManager.shared.fetchNotDoneCountBackground(dayOfTheWeek: Formatter.shared.dayOfTheWeek()))개"
+        content.title = "What should I do?"
+        content.body = "Check out you Shouldo!"
         content.sound = UNNotificationSound.default
         var date = DateComponents()
         date.hour = 9
         date.minute = 0
-        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: false)
-        let request = UNNotificationRequest(identifier: "noti", content: content, trigger: trigger)
+        let trigger = UNCalendarNotificationTrigger(dateMatching: date, repeats: true)
+        let request = UNNotificationRequest(identifier: "should", content: content, trigger: trigger)
+        UNUserNotificationCenter.current().removeAllPendingNotificationRequests()
         UNUserNotificationCenter.current().add(request, withCompletionHandler: { (error) in
             if let error = error {
                 print(error)
@@ -41,6 +41,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
     
+    @objc func updateBadge() {
+        UIApplication.shared.applicationIconBadgeNumber = DataManager.shared.fetchNotDoneCount(dayOfTheWeek: Formatter.shared.dayOfTheWeek())
+    }
+    
     func application(_ application: UIApplication, didFinishLaunchingWithOptions launchOptions: [UIApplication.LaunchOptionsKey: Any]?) -> Bool {
         // Override point for customization after application launch.
         DataManager.shared.setup(modelName: "Shouldo")
@@ -48,10 +52,11 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: [UNAuthorizationOptions.alert, .badge, .sound]) { (granted, error) in
             if granted {
                 UNUserNotificationCenter.current().delegate = self
+                self.postNoti()
             } 
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(postNoti), name: NSNotification.Name.NSCalendarDayChanged, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(updateBadge), name: UIApplication.significantTimeChangeNotification, object: nil)
         
         return true
     }

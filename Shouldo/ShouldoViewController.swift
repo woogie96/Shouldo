@@ -34,6 +34,24 @@ class ShouldoViewController: UIViewController {
         addTextField.returnKeyType = UIReturnKeyType(rawValue: 9)!
     }
     
+    @IBAction func trashBarButtonTapped(_ sender: Any) {
+        let controller = UIAlertController(title: "Delete \(dayOfTheWeek.uppercased()) Shouldos", message: "Are you sure?", preferredStyle: .alert)
+        
+        let okAction = UIAlertAction(title: "OK", style: .destructive) { (_) in
+            let shouldos: [ShouldoEntity] = DataManager.shared.fetchShouldo(dayOfTheWeek: self.dayOfTheWeek)
+            DataManager.shared.deleteShouldos(entities: shouldos)
+            self.shouldoList = DataManager.shared.fetchShouldo(dayOfTheWeek: self.dayOfTheWeek)
+            self.tableView.reloadData()
+        }
+        
+        let cancleAction = UIAlertAction(title: "Cancle", style: .cancel, handler: nil)
+        
+        controller.addAction(okAction)
+        controller.addAction(cancleAction)
+        
+        present(controller, animated: true, completion: nil)
+    }
+    
 }
 
 extension ShouldoViewController: UITableViewDataSource {
