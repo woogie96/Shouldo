@@ -8,7 +8,7 @@
 
 import Foundation
 
-class Formatter {
+class Formatter: DateFormatter {
     static let shared = Formatter()
     
     func dayOfTheWeek() -> String {
