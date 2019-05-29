@@ -135,30 +135,6 @@ extension DataManager {
         return dayTotal - dayDone
     }
     
-    func fetchNotDoneCountBackground(dayOfTheWeek: String) -> Int {
-        var dayTotal: Int = 0
-        var dayDone: Int = 0
-        
-        backgroundContext.performAndWait {
-            let dayTotalRequest: NSFetchRequest<ShouldoEntity> = ShouldoEntity.fetchRequest()
-            let dayDoneRequest: NSFetchRequest<ShouldoEntity> = ShouldoEntity.fetchRequest()
-            
-            let dayPredicate = NSPredicate(format: "dayOfTheWeek CONTAINS %@", dayOfTheWeek)
-            let donePredicate = NSPredicate(format: "isFinished CONTAINS %@", "done")
-            let dayDonePredicate = NSCompoundPredicate(type: .and, subpredicates: [dayPredicate, donePredicate])
-            
-            dayTotalRequest.predicate = dayPredicate
-            dayDoneRequest.predicate = dayDonePredicate
-            do {
-                dayTotal = try backgroundContext.count(for: dayTotalRequest)
-                dayDone = try backgroundContext.count(for: dayDoneRequest)
-            } catch {
-                fatalError()
-            }
-        }
-        return dayTotal - dayDone
-    }
-    
     func updateShouldo(entity: ShouldoEntity, isFinished: String?) {
         mainContext.perform {
             entity.isFinished = isFinished

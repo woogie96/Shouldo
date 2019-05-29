@@ -23,13 +23,6 @@ class DataManager {
         return context
     }
     
-    var backgroundContext: NSManagedObjectContext {
-        guard let context = container?.newBackgroundContext() else {
-            fatalError()
-        }
-        return context
-    }
-    
     func setup(modelName: String) {
         container = NSPersistentContainer(name: modelName)
         container?.loadPersistentStores(completionHandler: { (desc, error) in
