@@ -24,7 +24,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func postNoti() {
         let content = UNMutableNotificationContent()
         content.title = "What should I do?"
-        content.body = "Check out you Shouldo!"
+        content.body = "Check out your Shouldo!"
         content.sound = UNNotificationSound.default
         var date = DateComponents()
         date.hour = 9
