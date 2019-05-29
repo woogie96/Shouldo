@@ -22,10 +22,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
 
 
     @objc func postNoti() {
-        UIApplication.shared.applicationIconBadgeNumber = DataManager.shared.fetchNotDoneCount(dayOfTheWeek: Formatter.shared.dayOfTheWeek())
+        UIApplication.shared.applicationIconBadgeNumber = DataManager.shared.fetchNotDoneCountBackground(dayOfTheWeek: Formatter.shared.dayOfTheWeek())
         let content = UNMutableNotificationContent()
         content.title = "Today's Shouldo"
-        content.body = "오늘 할 일: \(DataManager.shared.fetchNotDoneCount(dayOfTheWeek: Formatter.shared.dayOfTheWeek()))개"
+        content.body = "오늘 할 일: \(DataManager.shared.fetchNotDoneCountBackground(dayOfTheWeek: Formatter.shared.dayOfTheWeek()))개"
         content.sound = UNNotificationSound.default
         var date = DateComponents()
         date.hour = 9

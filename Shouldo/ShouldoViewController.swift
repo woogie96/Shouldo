@@ -8,7 +8,6 @@
 
 import UIKit
 import CoreData
-import UserNotifications
 
 class ShouldoViewController: UIViewController {
     @IBOutlet weak var addTextField: UITextField!
