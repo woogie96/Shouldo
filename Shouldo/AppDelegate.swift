@@ -21,11 +21,12 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     var window: UIWindow?
 
 
-    func postNoti() {
+    @objc func postNoti() {
         let content = UNMutableNotificationContent()
         content.title = "What should I do?"
         content.body = "Check out your Shouldo!"
         content.sound = UNNotificationSound.default
+        content.badge = DataManager.shared.fetchNotDoneCount(dayOfTheWeek: Formatter.shared.dayOfTheWeek()) as NSNumber
         var date = DateComponents()
         date.hour = 9
         date.minute = 0
@@ -41,7 +42,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         })
     }
     
-    @objc func updateBadge() {
+    func updateBadge() {
         UIApplication.shared.applicationIconBadgeNumber = DataManager.shared.fetchNotDoneCount(dayOfTheWeek: Formatter.shared.dayOfTheWeek())
     }
     
@@ -52,11 +53,10 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
         UNUserNotificationCenter.current().requestAuthorization(options: [UNAuthorizationOptions.alert, .badge, .sound]) { (granted, error) in
             if granted {
                 UNUserNotificationCenter.current().delegate = self
-                self.postNoti()
             } 
         }
         
-        NotificationCenter.default.addObserver(self, selector: #selector(updateBadge), name: UIApplication.significantTimeChangeNotification, object: nil)
+        NotificationCenter.default.addObserver(self, selector: #selector(postNoti), name: UIApplication.significantTimeChangeNotification, object: nil)
         
         return true
     }
@@ -69,7 +69,7 @@ class AppDelegate: UIResponder, UIApplicationDelegate {
     func applicationDidEnterBackground(_ application: UIApplication) {
         // Use this method to release shared resources, save user data, invalidate timers, and store enough application state information to restore your application to its current state in case it is terminated later.
         // If your application supports background execution, this method is called instead of applicationWillTerminate: when the user quits.
-        UIApplication.shared.applicationIconBadgeNumber = DataManager.shared.fetchNotDoneCount(dayOfTheWeek: Formatter.shared.dayOfTheWeek())
+        updateBadge()
     }
 
     func applicationWillEnterForeground(_ application: UIApplication) {
